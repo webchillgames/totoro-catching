@@ -10,49 +10,11 @@
 </head>
 
 <body style="margin: 0; overflow: hidden;">
-    <script>
-        // AFRAME.registerComponent('collider-check', {
-        //     dependencies: ['raycaster'],
-
-        //     init: function () {
-        //         this.el.addEventListener('raycaster-intersection', function () {
-        //             // alert('Player hit something!');
-        //             console.log(this);
-        //         });
-        //     }
-        // });
-        // AFRAME.registerComponent('text-coords', {
-        //     init: function () {
-        //         const textCoords = {
-        //             latitude: null,
-        //             longitude: null
-        //         }
-
-        //         navigator.geolocation.getCurrentPosition(function (location) {
-        //             textCoords.latitude = location.coords.latitude
-        //             textCoords.longitude = location.coords.longitude
-
-        //         })
-
-
-        //         for (let attr in this.el.attributes) {
-        //             if (this.el.attributes[attr].nodeName === 'gps-entity-place') {
-        //                 const value = `latitude: ${textCoords.latitude}; longitude: ${textCoords.longitude};`
-        //                 this.el.attributes[attr].value = value
-
-        //             }
-        //         }
-
-        //     }
-        // })
-    </script>
     <a-scene renderer="logarithmicDepthBuffer: true;" embedded loading-screen="enabled: false;"
         arjs="sourceType: webcam; debugUIEnabled: false;">
         <a-assets>
-            <!-- <a-asset-item id="wanted" src="/logo.png"></a-asset-item> -->
             <a-asset-item id="totoro" src="/totoro.glb"></a-asset-item>
         </a-assets>
-
 
         <a-camera gps-camera rotation-reader alert="true" positionMinAccuracy="100" position="28 0 0">
             <a-entity  raycaster="objects: .clickable" animation__fusing="property: scale; from: 1 1 1; to: 2 2 2; startEvents: fusing;" cursor="fuse: true; fuseTimeout: 500" material="color: #000000" position="0 0 -2" geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"></a-entity>
