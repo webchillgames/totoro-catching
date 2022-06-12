@@ -2,7 +2,7 @@
   <!-- <img alt="Totoro logo" src="./assets/totoro-logo.jpeg" /> -->
   <div>
     <iframe
-      src="/totoro.html"
+      src="./totoro.html"
       class="ar"
       :style="{
         width: '100%',
