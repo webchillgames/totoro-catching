@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="https://raw.githack.com/donmccurdy/aframe-extras/master/dist/aframe-extras.loaders.min.js"></script>
+</head>
+
+<body style="margin: 0; overflow: hidden;">
+    <script>
+        AFRAME.registerComponent('text-coords', {
+            init: function () {
+                const textCoords = {
+                    latitude: null,
+                    longitude: null
+                }
+
+                navigator.geolocation.getCurrentPosition(function (location) {
+                    textCoords.latitude = location.coords.latitude
+                    textCoords.longitude = location.coords.longitude
+                  
+                })
+
+           
+                for (let attr in this.el.attributes) {
+                    if (this.el.attributes[attr].nodeName === 'gps-entity-place') {
+                        const value = `latitude: ${textCoords.latitude}; longitude: ${textCoords.longitude};`
+                        this.el.attributes[attr].value = value
+                     
+                    }
+                }
+                
+            }
+        })
+    </script>
+    <a-scene renderer="logarithmicDepthBuffer: true;" embedded loading-screen="enabled: false;"
+        arjs="sourceType: webcam; debugUIEnabled: false;">
+        <a-assets>
+            <a-asset-item id="wanted" src="/logo.png"></a-asset-item>
+            <a-asset-item id="animated-asset" src="/totoro.glb"></a-asset-item>
+        </a-assets>
+
+        <!-- <a-entity look-at="[gps-camera]" animation-mixer="loop: repeat" gltf-model="#animated-asset" scale="0.2 0.2 0.2"
+            gps-entity-place="latitude: 53.434882; longitude: 14.561122;"></a-entity>
+
+        <a-entity look-at="[gps-camera]" animation-mixer="loop: repeat" gltf-model="#animated-asset" scale="0.2 0.2 0.2"
+            gps-entity-place="latitude: 53.434182; longitude: 14.563324;">
+        </a-entity>
+
+        <a-entity look-at="[gps-camera]" animation-mixer="loop: repeat" gltf-model="#animated-asset" scale="0.2 0.2 0.2"
+            gps-entity-place="latitude: 53.432149; longitude: 14.560899;">
+        </a-entity> -->
+
+        <a-text text-coords look-at="[gps-camera]" align="top" value="Catch Totoro!"
+            scale="15 15 15" gps-entity-place="">
+        </a-text>
+        <a-entity geometry="primitive: plane" material="src: #wanted"></a-entity>
+
+        <a-camera gps-camera rotation-reader alert="true" positionMinAccuracy="100" position="28 0 0">
+            <a-cursor fuse="true" fuse-timeout="500"></a-cursor>
+        </a-camera>
+    </a-scene>
+</body>
+
+</html>
